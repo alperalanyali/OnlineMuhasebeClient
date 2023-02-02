@@ -4,7 +4,7 @@ import { AppComponent } from './app/app.component';
 import { RouterModule } from '@angular/router';
 import { importProvidersFrom } from '@angular/core';
 
-bootstrapApplication(AppComponent,{
+bootstrapApplication(AppComponent,{ 
     providers:[
         importProvidersFrom(
             BrowserModule,
