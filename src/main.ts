@@ -14,15 +14,20 @@ bootstrapApplication(AppComponent,{
             RouterModule.forRoot([
                 {
                     path:"",
-                    loadComponent:()=>import("./app/ui/components/layout/layout.component").then(c => c.LayoutComponent),
+                    loadComponent:()=>import("./app/ui/components/layout/layout.component").then(c => c.default),
                     canActivateChild:[AuthGuard],
                     children:[
                         {
                             path:"",
                             loadComponent: ()=>import("./app/ui/components/blank/blank.component").then(c => c.BlankComponent)
+                        },
+                        {
+                            path:"ucafs",
+                            loadComponent: ()=>import("./app/ui/components/ucafs/ucafs.component").then(c => c.UcafsComponent)
                         }
                     ]
                 },
+                
                 {
                     path:"login",
                     loadComponent:()=> import("./app/ui/components/auth/login/login.component").then(c => c.LoginComponent)

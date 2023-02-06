@@ -56,10 +56,11 @@
               </div> -->
               <!-- /.col -->
               <div class="col-12">
-                <button type="submit" 
-                        class="btn btn-primary btn-block"                        
-                        [disabled]="!loginForm.valid"
-                  >Giriş Yap</button>
+                <app-loading-button 
+                btnName="Giriş Yap" 
+                btnLoadingName="Giriş Yapılıyor..." 
+                [form]="loginForm"
+                [isLoading]="isLoading"></app-loading-button>
               </div>
               <!-- /.col -->
             </div>
