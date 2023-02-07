@@ -8,7 +8,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class GenericHttpService {
-  apiUrl: string = "";
+  apiUrl: string = "http://localhost:5004/api/v1/";
   token:string =localStorage.getItem('token');
   constructor(
     private _http:HttpClient,
@@ -18,46 +18,33 @@ export class GenericHttpService {
 
 
   get<T>(api: string, callBack: (res: T) => void, authorize: boolean = true, diffApi: boolean = false) {
-  
+    
     this._http.get<T>(`${this.setApi(diffApi, api)}`, this.setOptions(authorize)).subscribe({
       next: (res) => callBack(res),
       error: (err: HttpErrorResponse) => this._error.errorHandler(err)
     });
   }
 
-  post<T>(api: string, model: any, callBack: (res: T) => void, authorize: boolean = true, diffApi: boolean = false) {
-    
+  post<T>(api: string, model: any, callBack: (res: T) => void, authorize: boolean = true, diffApi: boolean = false) {    
     this._http.post<T>(`${this.setApi(diffApi, api)}`, model, this.setOptions(authorize)).subscribe({
       next: (res) => callBack(res),
       error: (err: HttpErrorResponse) => this._error.errorHandler(err)
     });
   }
-  // put<T>(api: string,model:any, callBack: (res: T) => void, authorize: boolean = true, diffApi: boolean = false ){
-  //   this._http.put<T>(`${this.setApi(diffApi,api)}`,model,this.setOptions(authorize)).subscribe({
-  //     next: (res) => callBack(res),
-  //     error: (err: HttpErrorResponse) => this._error.errorHandler(err)
-  //   });
-  // }
-  // delete<T>(api: string,model:any, callBack: (res: T) => void, authorize: boolean = true, diffApi: boolean = false ){
-  //   debugger;
-  //   this._http.delete<T>(`${this.setApi(diffApi,api)}`,{
-  //     params:model
-  //   }
-  //   ).subscribe({
-  //     next: (res) => callBack(res),
-  //     error: (err: HttpErrorResponse) => this._error.errorHandler(err)
-  //   });;
- 
-  // }
+  
   setApi(diffApi: boolean, api: string) {
     if (diffApi)
       return api;    
     return this.apiUrl + api;
   }
 
-  setOptions(authorize: boolean) {
-    if (authorize)
-      return { headers: { "Authorization": `Bearer ${this._crypto.decrypto(localStorage.getItem("accesstoken"))}`}}
+  setOptions(authorize: boolean) {    
+    if (authorize){
+      let accessToken =JSON.parse(this._crypto.decrypto(localStorage.getItem("accessToken")))      
+      return { headers: { "Authorization": `Bearer ${accessToken.token.token}`}}
+    }
+
+      
     return {}
   }
 }

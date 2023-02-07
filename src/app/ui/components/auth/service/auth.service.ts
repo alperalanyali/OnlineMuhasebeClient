@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class AuthService {
-  api:string ="http://localhost:5004/api/v1/Auth/Login";
+  api:string ="Auth/Login";
   
   constructor(
     private _http: GenericHttpService,  

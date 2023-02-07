@@ -8,7 +8,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class AsideService {
-  api = "http://localhost:5004/api/v1/NavigationItemMainRole/GetNavigationItemMainRoleByMainRoleId?mainRoleId=0bb952c5-af2c-4f1e-8af5-4a2ad11fcb4a";
+  api = "NavigationItemMainRole/GetNavigationItemMainRoleByMainRoleId?mainRoleId=0bb952c5-af2c-4f1e-8af5-4a2ad11fcb4a";
   
   constructor(    private _http: GenericHttpService, 
     private _crypto: CryptoService ) {       
@@ -17,9 +17,9 @@ export class AsideService {
     getMenus(){
       let cryoToken = this._crypto.decrypto(localStorage.getItem("accessToken"));
       //console.log(cryoToken);
-      let userInfo = this._http.get(this.api,(res)=>{
-        console.log(res)
-      },false)
+      /*let userInfo = this._http.get(this.api,(res)=>{
+       // console.log(res)
+      },false)*/
     }
     
 }
