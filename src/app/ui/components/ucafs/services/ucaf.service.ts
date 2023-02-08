@@ -2,6 +2,8 @@ import { CryptoService } from 'src/app/common/service/crypto.service';
 import { GenericHttpService } from 'src/app/common/service/generic-http.service';
 import { Injectable } from '@angular/core';
 import { LoginResponseModel } from '../../auth/models/login-response.models';
+import { MessageReponseModel } from 'src/app/common/models/message-response.model';
+import { RemoveByIdModel } from '../models/remove-by-id.model';
 import { ResponseModel } from 'src/app/common/models/response.model';
 import { UcafModel } from '../models/ucaf.model';
 @Injectable({
@@ -30,4 +32,19 @@ export class UcafService {
     this._http.post<ResponseModel<UcafModel[]>>("UCAF/GetAllUcafs",model,res => callBack(res),true);
     
   }
+
+  add(model:UcafModel,callBack: (res:MessageReponseModel)=>void){
+    model.companyId = this.loginResponse.company.companyId;
+    this._http.post<MessageReponseModel>("UCAF/CreateUCAF",model,(res) =>{
+      console.log(res);
+      
+      callBack(res);
+    } );
+  }
+
+  removeById(model:RemoveByIdModel,callBack:(res:MessageReponseModel)=>void){
+    model.companyId = this.loginResponse.company.companyId;
+    this._http.post<MessageReponseModel>("UCAF/DeleteById",model,(res)=>callBack(res));
+  }
+
 }

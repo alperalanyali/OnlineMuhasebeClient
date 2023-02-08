@@ -5,5 +5,6 @@ export class UcafModel{
     type:string ="";
     createdDate:string="";
     updateDate:string="";
+    companyId:string="";
 }
 
