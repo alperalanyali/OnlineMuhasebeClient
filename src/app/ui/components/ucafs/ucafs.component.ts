@@ -23,8 +23,7 @@ import { ValidInputDirective } from 'src/app/common/directives/valid-input.direc
             SectionComponent,
             UcafPipe,
             FormsModule,
-            ValidInputDirective,
-            FormsModule,
+            ValidInputDirective,            
             LoadingButtonComponent],
   templateUrl: './ucafs.component.html',
   styleUrls: ['./ucafs.component.css']

@@ -19,5 +19,11 @@ export const Navigations : Navigation[]=[
         icon:"fa fa-book"
 
         //<i class="fa-regular fa-square-list"></i>
+    },
+    {
+        routerLink : "/navigationItems",
+        name:"Menüler",
+        icon:"fa fa-ellipsis-vertical"
+        
     }    
 ]

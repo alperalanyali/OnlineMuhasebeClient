@@ -24,6 +24,10 @@ bootstrapApplication(AppComponent,{
                         {
                             path:"ucafs",
                             loadComponent: ()=>import("./app/ui/components/ucafs/ucafs.component").then(c => c.UcafsComponent)
+                        },
+                        {
+                            path:"navigationItems",
+                            loadComponent: ()=>import("./app/ui/components/navigationItem/navigation-item/navigation-item.component").then(c => c.NavigationItemComponent)
                         }
                     ]
                 },

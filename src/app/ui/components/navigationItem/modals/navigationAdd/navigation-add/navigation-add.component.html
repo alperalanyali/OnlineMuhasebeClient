@@ -1,0 +1,38 @@
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+                <form #addForm="ngForm" autocomplete="off" (ngSubmit)="add(addForm)">
+                    <div class="form-group">
+                        <label>Menü Adı</label>
+                        <input ngModel #navigationName class="form-control" name="navigationName" id="menuname" minlength="5">
+                    </div>
+                    <div class="form-group">
+                        <label>Menü Yolu</label>
+                        <input ngModel #navigationPath class="form-control" name="navigationPath" id="menuPath" minlength="5">
+                    </div>
+                    <div class="form-group">
+                        <label>Ust Menü</label>
+                        <select ngModel #topNavigationId class="form-control"  name="topNavigationId" >
+                            <option value="0">Seçiniz</option>
+                            <option *ngFor="let nav of navigationItems" value="{{nav.navigationName}}">{{nav.navigationName}}</option>
+                        </select>
+                    </div>
+                    <div class="modal-footer">                       
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                      </div>
+                </form>
+          </div>
+        </div>
+ 
+      </div>
+    </div>
+  </div>

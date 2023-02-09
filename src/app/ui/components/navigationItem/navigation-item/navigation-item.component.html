@@ -1,1 +1,43 @@
-<p>navigation-item works!</p>
+<app-blank title="Menüler">
+
+    
+    <app-section sectionTitle="Menü Listesi">
+        <div class="form-group float-left">
+            <button class="btn btn-outline-primary"><i class="fa fa-plus"></i></button>
+        </div>
+
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+            Launch demo modal
+          </button>
+          
+        <app-navigation-add></app-navigation-add>
+        <div class="form-group float-right col-md-3 ">
+            <input type="search" class="form-control search" placeholder="Aranacak değer" [(ngModel)]="filterText">
+        </div>
+
+        <div class="form-group">
+             <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Menü Adı</th>
+                    <th>Menü Yolu</th>
+                    <th>Üst Menüsü</th>
+                    <th>İşlemler</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let nav of navigationItems">
+                    <td>{{nav.navigationName}}</td>
+                    <td>{{nav.navigationPath}}</td>
+                    <td>{{nav.topNavigationId}}</td>
+                    <td>
+                        <button class="btn btn-outline-warning btn-sm" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-edit"></i></button>
+                        <button class="btn btn-outline-danger btn-sm ml-4"><i class="fa fa-trash"></i></button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        </div>
+    </app-section>
+
+</app-blank>
