@@ -36,14 +36,17 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->  
-          <li class="nav-item" *ngFor="let nav of navigations">
+          <!-- <li class="nav-item" *ngFor="let nav of navigations">
             <a routerLink="{{nav.routerLink}}" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" class="nav-link">
               <i class="nav-icon far {{nav.icon}}"></i>
               <p [innerText]="nav.name"></p>
             </a>
+          </li> -->
+          <li class="nav-item" *ngFor="let menu of menuItems">
+              <a routerLink="{{menu.navigationPath}}" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" ><p [innerText]="menu.navigationName" style="margin-left:20px;"></p></a>
           </li>
           <li class="nav-item" >
-            <a (click)="logout()" class="nav-link">
+            <a (click)="logout()"  class="nav-link">
               <i class="nav-icon fa fa-power-off text-danger "></i>
               <p >Çıkış Yap</p>
             </a>

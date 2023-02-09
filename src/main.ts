@@ -28,6 +28,10 @@ bootstrapApplication(AppComponent,{
                         {
                             path:"navigationItems",
                             loadComponent: ()=>import("./app/ui/components/navigationItem/navigation-item/navigation-item.component").then(c => c.NavigationItemComponent)
+                        },
+                        {
+                            path:"users",
+                            loadComponent: ()=>import("./app/ui/components/users/users/users.component").then(c => c.UsersComponent)
                         }
                     ]
                 },
