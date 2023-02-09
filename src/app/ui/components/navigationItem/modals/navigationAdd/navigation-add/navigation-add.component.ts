@@ -26,12 +26,11 @@ navigationItems:NavigationItemModel[]=[];
     private _navigationAddService:NavigationaddService,
     private _toastr: ToastrService
   ){
-    
   }
   ngOnInit():void{
-    this.getNavigationItem();
-    
+    this.getNavigationItem(); 
   }
+  
   add(form:NgForm){ 
     let model = new NavigationItemModel();
     model.navigationName = form.controls['navigationName'].value;
@@ -43,9 +42,8 @@ navigationItems:NavigationItemModel[]=[];
     })
   }
 
-
   getNavigationItem(){  
-    this._navigationItemService.getAll(res => {
+    this._navigationItemService.getAllNavItem(res => {
       this.navigationItems = res.data;        
     });
   }
