@@ -100,6 +100,7 @@ export class UsersComponent implements OnInit {
     debugger;
     this._usersService.addUserCompany(model,res => {
       this._toastr.toast(ToastrType.Success,res.message,"Basarili");
+      this.getUserCompany();
     })
   }
 }

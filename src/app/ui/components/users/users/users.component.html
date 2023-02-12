@@ -19,40 +19,42 @@
                             <td>{{user.email}}</td>
                             <td>{{user.phone}}</td>
                             <td>
-
+                                    <button title="Güncelleme" class="btn btn-outline-warning btn-sm"><i class="fa fa-edit"></i></button>
+                                    <button title="Sil" class="btn btn-outline-danger btn-sm ml-4"><i class="fa fa-trash"></i></button>
                             </td>
                         </tr>
                     </tbody>
                 </table>
         </div>
     </app-section>
-    <div class="form-group" *ngIf="isUserCompanyAddVisible">
-            <form #addUserCompanyForm = "ngForm" (ngSubmit)="addUserCompany(addUserCompanyForm)">
-                    <div class="row">
-                        <div class="col-4">
-              
-                                <select ngModel #userId name="userId" class="form-control">
-                                        <option *ngFor="let user of users" value="{{user.id}}">{{user.username}} - {{user.fullName}}</option>
-                                </select>
-                        </div>
-                        <div class="col-4">
-                       
-                                <select ngModel #companyId name="companyId" class="form-control">
-                                        <option *ngFor="let company of companies" value="{{company.companyId}}}">{{company.companyName}}</option>
-                                </select>
-                        </div>
-                        <label></label>
-                        <div class="col-2">
-                                <button type="submit" class="btn btn-outline-primary" >Kaydet</button>
-                        </div>
-                        <label></label>
-                        <div class="col-2">
-                                <button class="btn btn-outline-danger" (click)="toggleUserComoanyAdd()" >İptal</button>
-                        </div>
-                    </div>
-            </form>
-    </div>
+   
     <app-section sectionTitle="Şirket Yetkileri">
+            <div class="form-group" *ngIf="isUserCompanyAddVisible">
+                <form #addUserCompanyForm = "ngForm" (ngSubmit)="addUserCompany(addUserCompanyForm)">
+                        <div class="row">
+                            <div class="col-4">
+                
+                                    <select ngModel #userId name="userId" class="form-control">
+                                            <option *ngFor="let user of users" value="{{user.id}}">{{user.username}} - {{user.fullName}}</option>
+                                    </select>
+                            </div>
+                            <div class="col-4">
+                        
+                                    <select ngModel #companyId name="companyId" class="form-control">
+                                            <option *ngFor="let company of companies" value="{{company.companyId}}">{{company.companyName}}</option>
+                                    </select>
+                            </div>
+                            <label></label>
+                            <div class="col-2">
+                                    <button type="submit" class="btn btn-outline-primary" >Kaydet</button>
+                            </div>
+                            <label></label>
+                            <div class="col-2">
+                                    <button class="btn btn-outline-danger" (click)="toggleUserComoanyAdd()" >İptal</button>
+                            </div>
+                        </div>
+                </form>
+            </div>
         <div class="form-group float-left">
             <button (click)="toggleUserComoanyAdd()" class="btn btn-outline-primary"><i class="fa fa-plus"></i></button>
         </div>
@@ -70,7 +72,8 @@
                                  <td>{{userCompany.userName}}</td>
                                  <td>{{userCompany.companyName}}</td>
                                  <td>
-
+                                    <button title="Güncelleme" class="btn btn-outline-warning btn-sm"><i class="fa fa-edit"></i></button>
+                                    <button title="Sil" class="btn btn-outline-danger btn-sm ml-4"><i class="fa fa-trash"></i></button>
                                  </td>
                             </tr>
                         </tbody>
@@ -94,9 +97,9 @@
                         </div>
                         <div class="col-2">
                             <button  type="submit" class="btn btn-outline-primary">Kaydet</button>
-                    </div>
+                        </div>
                         <div class="col-2">
-                                <button class="btn btn-outline-danger">Sil</button>
+                            <button (click)="toggleMainRoleUserAdd()"  class="btn btn-outline-danger">İptal</button>
                         </div>
                   </div>
                    
@@ -119,7 +122,10 @@
                         <tr *ngFor="let mainRoleUser of mainRoleUsers">
                             <td>{{mainRoleUser.userName}}</td>
                             <td>{{mainRoleUser.mainRoleTitle}}</td>
-                            <td></td>
+                            <td>
+                                <button title="Güncelleme" class="btn btn-outline-warning btn-sm"><i class="fa fa-edit"></i></button>
+                                <button title="Sil" class="btn btn-outline-danger btn-sm ml-4"><i class="fa fa-trash"></i></button>
+                            </td>
                         </tr>
                     </tbody>
                 </table>

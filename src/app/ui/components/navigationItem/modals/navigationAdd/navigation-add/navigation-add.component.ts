@@ -19,33 +19,48 @@ import { NavigationaddService } from '../../service/navigationadd.service';
   styleUrls: ['./navigation-add.component.css']
 })
 export class NavigationAddComponent implements OnInit {
-@Input() Id:string = '';
+
+@Input() navigationItem:NavigationItemModel;
+addForm:NgForm;
 navigationItems:NavigationItemModel[]=[];
   constructor(  
     private  _navigationItemService:NavigationItemService,
     private _navigationAddService:NavigationaddService,
     private _toastr: ToastrService
   ){
+    this.checkIdIsEmpty();
   }
   ngOnInit():void{
     this.getNavigationItem(); 
+    this.addForm.controls['menuname'].setValue(this.navigationItem.navigationName); 
+    console.log(this.navigationItem.navigationName);
   }
-  
+  checkIdIsEmpty(){    
+    if(this.navigationItem != null){
+   
+    }
+  }
   add(form:NgForm){ 
     let model = new NavigationItemModel();
     model.navigationName = form.controls['navigationName'].value;
     model.navigationPath = form.controls['navigationPath'].value;
     model.topNavigationId = form.controls["topNavigationId"].value;
-    this._navigationAddService.add(model,res =>{
-      form.reset();
-      this._toastr.toast(ToastrType.Success,res.message,"Basarili");
-    })
+    if(this.navigationItem == null){
+      this._navigationAddService.add(model,res =>{
+        form.reset();
+        this._toastr.toast(ToastrType.Success,res.message,"Basarili");
+      })
+    } else {
+      this._navigationAddService.update(model,res => {
+        form.reset();
+        this._toastr.toast(ToastrType.Success,res.message,"Basarili");
+      })
+    }
   }
-
+  
   getNavigationItem(){  
     this._navigationItemService.getAllNavItem(res => {
       this.navigationItems = res.data;        
     });
   }
-
 }

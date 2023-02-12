@@ -10,6 +10,7 @@
         </div>
         <div class="modal-body">
           <div class="form-group">
+            
                 <form #addForm="ngForm" autocomplete="off" (ngSubmit)="add(addForm)">
                     <div class="form-group">
                         <label>Menü Adı</label>
@@ -17,6 +18,7 @@
                     </div>
                     <div class="form-group">
                         <label>Menü Yolu</label>
+                        <p></p>
                         <input ngModel #navigationPath class="form-control" name="navigationPath" id="menuPath" minlength="5">
                     </div>
                     <div class="form-group">

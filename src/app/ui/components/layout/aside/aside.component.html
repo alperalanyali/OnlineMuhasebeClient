@@ -43,7 +43,17 @@
             </a>
           </li> -->
           <li class="nav-item" *ngFor="let menu of menuItems">
-              <a routerLink="{{menu.navigationPath}}" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" ><p [innerText]="menu.navigationName" style="margin-left:20px;"></p></a>
+              <a *ngIf="menu.topNavbarId != ''" routerLink="{{menu.navigationPath}}"  class="nav-link">
+                <p [innerText]="menu.navigationName" style="margin-left:20px;"></p>
+              </a>
+              <ul *ngFor="let subMenu of menu.subMenus" class="nav nav-treeview">
+                <li class="nav-item">
+                  <a routerLink="{{subMenu.navigationPath}}" class="nav-link" style="margin-left:40px                  ">
+                    
+                    <p>{{subMenu.navigationName}}</p>
+                  </a>
+                </li>
+              </ul>
           </li>
           <li class="nav-item" >
             <a (click)="logout()"  class="nav-link">

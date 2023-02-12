@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { ToastrService, ToastrType } from 'src/app/common/service/toastr.service';
 
@@ -6,10 +6,12 @@ import { BlankComponent } from 'src/app/common/components/blank/blank.component'
 import { CommonModule } from '@angular/common';
 import { MainRoleModel } from '../models/mainRole.models';
 import { NavigationAddComponent } from '../modals/navigationAdd/navigation-add/navigation-add.component';
+import { NavigationItemDeleteById } from '../models/navigationItem-removeById.model';
 import { NavigationItemMainRoleById } from '../models/navigationItemMainRole-remove-by.model';
 import { NavigationItemMainRoleModel } from '../models/navigationItemMainRole.models';
 import { NavigationItemModel } from '../models/navigationItem.model';
 import { NavigationItemService } from '../service/navigation-item.service';
+import { NavigationaddService } from '../modals/service/navigationadd.service';
 import { SectionComponent } from 'src/app/common/components/blank/section/section.component';
 
 @Component({
@@ -29,21 +31,24 @@ import { SectionComponent } from 'src/app/common/components/blank/section/sectio
 
 export class NavigationItemComponent implements OnInit {
   
+
+  
   navigationItems:NavigationItemModel[] = [];
   navigationItemMainRole: NavigationItemMainRoleModel[] = [];
   mainRoles: MainRoleModel[] = [];
   filterText:string ="";
   isMenuRoleVisible:boolean = false;
-  id:string = "";
   constructor(
     private _navigationItemService: NavigationItemService,
-    private _toastr: ToastrService
+    private _toastr: ToastrService,
+    private _navigationAddService: NavigationaddService
   ){
     
   }
 
   ngOnInit():void{
     this.getAll();
+
     
   }
   getAll(){
@@ -77,7 +82,13 @@ export class NavigationItemComponent implements OnInit {
       this.getAll();
     })    
   }
-
+  deleteMenuById(id:string){
+    let model =  new NavigationItemDeleteById();
+    model.id = id;
+    this._navigationItemService.deleteNavigationItemById(model,res =>{
+      this.getAll();
+    })
+  }
   deleteMenuRoleById(id:string){
     let model = new NavigationItemMainRoleById();
     model.id =id;
@@ -87,4 +98,28 @@ export class NavigationItemComponent implements OnInit {
         this.getAll();      
     })
   }
+
+  getId(navigationItem:NavigationItemModel){
+    
+
+  }
+
+  add(form:NgForm){ 
+    let model = new NavigationItemModel();
+    model.navigationName = form.controls['navigationName'].value;
+    model.navigationPath = form.controls['navigationPath'].value;
+    model.topNavigationId = form.controls["topNavigationId"].value;
+
+      this._navigationAddService.add(model,res =>{
+        form.reset();
+        this._toastr.toast(ToastrType.Success,res.message,"Basarili");
+      })
+    }
+  
+  getNavigationItem(){  
+    this._navigationItemService.getAllNavItem(res => {
+      this.navigationItems = res.data;        
+    });
+  }
+ 
 }
