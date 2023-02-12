@@ -1,11 +1,18 @@
+
+
 <app-blank title="Hesap Planı" [navs]="navs">
+    <!-- Ekleme Formu -->
     <app-section  sectionTitle="Hesap Planı Ekle" *ngIf="isAddForm">
         <form #addForm="ngForm" autocomplete="off" (ngSubmit)="add(addForm)">
             <div class="row">
                 <div class="col-md-2">
                     <label for="code">Hesap Planı Kodu</label>
                     <input ngModel type="text" #code name="code" required minlength="5" class="form-control" [validInput]="code.validity.valid">
+                    <div class="invalid-feedback">
+                        Kod alanı en az 5 karakter olmalıdır
+                    </div>
                 </div>
+              
                 <div class="col-md-2">
                     <label for="type">Tipi</label>
                     <select class="form-control" [(ngModel)]="ucafType" name="type" #type>
@@ -16,22 +23,76 @@
                 <div class="col-md-5">
                     <label for="name">Hesap Planı Adı</label>
                     <input type="text" class="form-control" ngModel name="name" #name [validInput]="name.validity.valid" required minlength="3">
+                    <div class="invalid-feedback">
+                        Hesap Planı Adı kısmı en az 3 karakter olmalıdır!!
+                    </div>
                 </div>
                 <div class="col-md-3">
                     <label>İşlemler</label>
                     <app-loading-button [form]="addForm" [isLoading]="isLoading" btnName="Kaydet" btnLoadingDescription="Kaydediliyor..."></app-loading-button>                   
                 </div>
+                <div class="col-md-12 mt-2">
+                    <button (click)="cancelBtn()" class="btn btn-outline-danger w-100">Vazgeç</button>
+                </div>
             </div>
         </form>
     </app-section>
+    <!-- Ekleme Formu -->
+    <!-- Güncelleme Formu -->
+    <app-section  sectionTitle="Hesap Planı Ekle" *ngIf="isUpdateForm">
+        <form #updateForm="ngForm" autocomplete="off" (ngSubmit)="update(updateForm)">
+            <div class="row">
+                <div class="col-md-2">
+                    <label for="code">Hesap Planı Kodu</label>
+                    <input [(ngModel)]="updateUcafModel.code" type="text" #code name="code" required minlength="5" class="form-control" [validInput]="code.validity.valid">
+                    <div class="invalid-feedback">
+                        Kod alanı en az 5 karakter olmalıdır
+                    </div>
+                </div>
+              
+                <div class="col-md-2">
+                    <label for="type">Tipi</label>
+                    <select class="form-control" [(ngModel)]="updateUcafModel.type" name="type" #type>
+                        <option value="M">Muavin</option>
+                        <option value="G">Grup</option>
+                    </select>
+                </div>
+                <div class="col-md-5">
+                    <label for="name">Hesap Planı Adı</label>
+                    <input type="text" class="form-control" [(ngModel)]="updateUcafModel.name" name="name" #name [validInput]="name.validity.valid" required minlength="3">
+                    <div class="invalid-feedback">
+                        Hesap Planı Adı kısmı en az 3 karakter olmalıdır!!
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <label>İşlemler</label>
+                    <app-loading-button 
+                            [form]="updateForm" 
+                            [isLoading]="isLoading"
+                            btnName="Güncelle" 
+                            btnLoadingDescription="Güncelleniyor..."
+                            btnLoadingClass="btn btn-outline-info w-100"
+                            >
+                            
+                            </app-loading-button>                   
+                </div>
+                <div class="col-md-12 mt-2">
+                    <button (click)="cancelBtn()" class="btn btn-outline-danger w-100">Vazgeç</button>
+                </div>
+            </div>
+        </form>
+    </app-section>
+    <!-- Güncelleme Formu -->
     <app-section sectionTitle="Hesap Planı Listesi">
-        <div class="form-group float-left">
+        <div class="form-group float-left" *ngIf="!isAddForm && !isUpdateForm">
                 <button class="btn btn-outline-primary" (click)="showAdd()"><i class="fa fa-plus"></i></button>
         </div>
-      
+      <!-- Arama -->
         <div class="form-group float-right col-md-3 ">
                 <input type="search" class="form-control search" placeholder="Aranacak değer" [(ngModel)]="filterText">
         </div>
+        <!-- Arama -->
+        <!-- Liste -->
         <div class="form-group">
             <table class="table table-bordered">
                 <thead>
@@ -44,19 +105,24 @@
                     </tr>
                 </thead>
                 <tbody>
-                        <tr *ngFor="let ucaf of ucafs | ucafPipe:filterText let index=index">
+                        <tr *ngFor="let ucaf of ucafs 
+                        |   ucafPipe:filterText 
+                            let index=index"
+                            [class]="setTrClass(ucaf.type)">
                                 <td>{{index+1}}</td>
                                 <td>{{ucaf.code}}</td>
                                 <td>{{ucaf.type}}</td>
                                 <td>{{ucaf.name}}</td>
-                                <td class="">
-                                        <button class="btn btn-outline-warning btn-sm" title="Güncelle"><i class="fa fa-edit"></i></button>
+                                <td>
+                                   <div *ngIf="ucaf.type != 'A' && !isUpdateForm ">
+                                        <button (click)="get(ucaf )" class="btn btn-outline-warning btn-sm" title="Güncelle"><i class="fa fa-edit"></i></button>
                                         <button (click)="removeById(ucaf.id)" class="btn btn-outline-danger btn-sm mx-1" title="Sil"><i class="fa fa-trash"></i></button>
-
+                                   </div>  
                                 </td>
                         </tr>
                 </tbody>
             </table>
         </div>
+        <!-- Liste -->
     </app-section>
 </app-blank>

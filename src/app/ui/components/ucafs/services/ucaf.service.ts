@@ -46,5 +46,9 @@ export class UcafService {
     model.companyId = this.loginResponse.company.companyId;
     this._http.post<MessageReponseModel>("UCAF/DeleteById",model,(res)=>callBack(res));
   }
-
+  update(model:UcafModel,callBack:(res:MessageReponseModel) => void){
+    debugger;
+    model.companyId = this.loginResponse.company.companyId;
+    this._http.post<MessageReponseModel>("UCAF/Update",model,(res)=>callBack(res));
+  }
 }

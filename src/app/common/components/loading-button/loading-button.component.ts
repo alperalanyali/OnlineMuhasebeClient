@@ -15,5 +15,7 @@ export class LoadingButtonComponent {
   @Input() form:NgForm;
   @Input() btnName:string = '';
   @Input() btnLoadingName:string = '';
-  @Input() btnClass:string = 'btn-outline-primary btn-block';
+  @Input() btnClass:string = 'btn-outline-primary btn-block w-100';
+  @Input() btnLoadingClass:string = 'btn--outline-primary w-100';
+  @Input() iconClass:string = 'fa fa-save';
 }

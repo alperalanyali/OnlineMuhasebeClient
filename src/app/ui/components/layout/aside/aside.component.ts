@@ -36,7 +36,5 @@ export class AsideComponent  implements OnInit   {
     });
     
   }
-  logout(){
-    this._authService.logout();
-  }
+
 }

@@ -3,18 +3,26 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { CryptoService } from './crypto.service';
 import { ErrorService } from './error.service';
 import { Injectable } from '@angular/core';
+import { LoginResponseModel } from 'src/app/ui/components/auth/models/login-response.models';
+import { LoginResponseService } from './login-response.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GenericHttpService {
   apiUrl: string = "http://localhost:5004/api/v1/";
+  loginResponse:LoginResponseModel =new LoginResponseModel();
   token:string =localStorage.getItem('token');
   constructor(
     private _http:HttpClient,
     private _error:ErrorService,
-    private _crypto:CryptoService
-  ) { }
+    private _crypto:CryptoService,
+    private _loginResponseService:LoginResponseService
+  ) {
+
+    this.loginResponse = _loginResponseService.getLoginResponse();
+    this.token = this.loginResponse.token.token;
+   }
 
 
   get<T>(api: string, callBack: (res: T) => void, authorize: boolean = true, diffApi: boolean = false) {

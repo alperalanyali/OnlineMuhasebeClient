@@ -2,11 +2,12 @@
         <button 
         *ngIf="!isLoading"
             type="submit" 
-            class="btn btn-primary btn-block"                        
-            [disabled]="!form.valid"
-    >{{btnName}}</button>
+            class="btn btn-block {{btnClass}}"                        
+            [disabled]="!form.valid">
+            <i class="{{iconClass}}"></i>
+            {{btnName}}</button>
     <button *ngIf="isLoading"
-            class="btn {{btnClass}}" disabled>
+            class="btn {{btnLoadingClass}}" disabled>
             <span class="spinner-border spinner-border-sm"></span>
             <span class="mx-1">{{btnLoadingName}}</span>
     </button>

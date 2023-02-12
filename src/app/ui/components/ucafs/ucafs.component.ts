@@ -7,9 +7,12 @@ import { CommonModule } from '@angular/common';
 import { CryptoService } from 'src/app/common/service/crypto.service';
 import { LoadingButtonComponent } from 'src/app/common/components/loading-button/loading-button.component';
 import { LoginResponseModel } from '../auth/models/login-response.models';
+import { LoginResponseService } from 'src/app/common/service/login-response.service';
 import { NavModel } from 'src/app/common/components/blank/models/navs.model';
 import { RemoveByIdModel } from './models/remove-by-id.model';
 import { SectionComponent } from 'src/app/common/components/blank/section/section.component';
+import { SwalComponent } from '@sweetalert2/ngx-sweetalert2';
+import { SwalService } from 'src/app/common/service/swal.service';
 import { UcafModel } from './models/ucaf.model';
 import { UcafPipe } from './pipes/ucaf.pipe';
 import { UcafService } from './services/ucaf.service';
@@ -44,7 +47,9 @@ export class UcafsComponent implements OnInit {
 
   ];
   
+  updateUcafModel: UcafModel = new UcafModel();
   isAddForm:boolean = false;
+  isUpdateForm:boolean  = false;
   isLoading:boolean = false;
   ucafs:UcafModel[];
   filterText:string = "";
@@ -53,11 +58,12 @@ export class UcafsComponent implements OnInit {
   
   constructor(
     private _ucafService: UcafService,
-    private _crypto: CryptoService,
-    private _toastr: ToastrService
-    ){
-      let loginResponeString = _crypto.decrypto(localStorage.getItem('accessToken'));
-      this.loginResponse = JSON.parse(loginResponeString);
+    private  _loginResponseService: LoginResponseService,
+    private _toastr: ToastrService,
+    private _swal:SwalService
+    )
+    {
+      this.loginResponse = this._loginResponseService.getLoginResponse();
   }
   ngOnInit():void{
     this.getAll();
@@ -69,7 +75,13 @@ export class UcafsComponent implements OnInit {
     });    
   }
   showAdd(){
-    this.isAddForm = !this.isAddForm;
+    this.isAddForm = !this.isAddForm;    
+  }
+
+  cancelBtn(){
+    this.isAddForm = false;
+    this.isUpdateForm = false;
+    
   }
   add(form:NgForm){
     if(form.valid){
@@ -78,23 +90,47 @@ export class UcafsComponent implements OnInit {
       model.name = form.controls['name'].value;
       model.type= form.controls['type'].value;
       this._ucafService.add(model,(res)=>{
-        form.reset();
+        form.controls['code'].setValue('');
+        form.controls['name'].setValue('');
         this.ucafType= "M";
         this.getAll();
         this._toastr.toast(ToastrType.Success,res.message,"Basarili");
       });
     }
   }
-
+  get(model:UcafModel){
+    this.updateUcafModel = { ...model};
+    this.isUpdateForm = true;
+    this.isAddForm = false;
+  }
+  update(form:NgForm){  
+    debugger;
+    let model = new UcafModel();
+    model.id = this.updateUcafModel.id;
+    model.code = form.controls['code'].value;
+    model.name = form.controls["name"].value;
+    model.type = form.controls["type"].value;    
+    this._ucafService.update(model,res => {
+      console.log(res);
+    })
+  }
   removeById(id:string){
-    var result = confirm("Silme işlemini yapmak istiyor musunuz?")
-    if(result){
+    this._swal.callSwal('Sil','Sil?',"Hesap planı kodunu silmek istiyor musunuz?", ()=>{
       let model = new RemoveByIdModel();
       model.id = id;
       this._ucafService.removeById(model,res=> {
         this.getAll();
         this._toastr.toast(ToastrType.Info,res.message,"Basarili");
       })
-    }
+    }) 
+  }
+
+  setTrClass(type:string){
+    if( type ==="A"){
+      return "text-danger";
+    }else if(type === "G")
+      return "text-primary";
+    else 
+      return "";
   }
 }

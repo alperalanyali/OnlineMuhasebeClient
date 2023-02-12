@@ -13,9 +13,7 @@
           <img src="/assets/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a class="d-block">{{loginResponse.fullName}}</a>
-          <p  [innerText]="loginResponse.company.companyName" class="white"></p>
-          <h4 [innerText]="loginResponse.year" class="white" ></h4>
+          <a class="d-block">{{loginResponse.fullName}}</a>          
         </div>
       </div>
 
@@ -55,12 +53,7 @@
                 </li>
               </ul>
           </li>
-          <li class="nav-item" >
-            <a (click)="logout()"  class="nav-link">
-              <i class="nav-icon fa fa-power-off text-danger "></i>
-              <p >Çıkış Yap</p>
-            </a>
-          </li>
+    
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
