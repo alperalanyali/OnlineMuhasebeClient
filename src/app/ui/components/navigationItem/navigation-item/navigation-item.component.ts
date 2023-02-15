@@ -5,6 +5,7 @@ import { ToastrService, ToastrType } from 'src/app/common/service/toastr.service
 import { BlankComponent } from 'src/app/common/components/blank/blank.component';
 import { CommonModule } from '@angular/common';
 import { MainRoleModel } from '../models/mainRole.models';
+import { Navigation } from '@mui/icons-material';
 import { NavigationAddComponent } from '../modals/navigationAdd/navigation-add/navigation-add.component';
 import { NavigationItemDeleteById } from '../models/navigationItem-removeById.model';
 import { NavigationItemMainRoleById } from '../models/navigationItemMainRole-remove-by.model';
@@ -35,6 +36,7 @@ export class NavigationItemComponent implements OnInit {
   
   navigationItems:NavigationItemModel[] = [];
   navigationItemMainRole: NavigationItemMainRoleModel[] = [];
+  selectedNavigationItem:NavigationItemModel = new  NavigationItemModel();
   mainRoles: MainRoleModel[] = [];
   filterText:string ="";
   isMenuRoleVisible:boolean = false;
@@ -99,21 +101,44 @@ export class NavigationItemComponent implements OnInit {
     })
   }
 
-  getId(navigationItem:NavigationItemModel){
+  getId(navigationItem:NavigationItemModel){    
+    this.selectedNavigationItem = {...navigationItem};
+    console.log(this.selectedNavigationItem)
+    let menuName = document.getElementById('menuname')  as HTMLInputElement;
+    let menuPath = document.getElementById('menuPath')  as HTMLInputElement;
+    let topNavigationId  = document.getElementById('topNavigationId') as HTMLInputElement;
     
-
+    menuName.value = this.selectedNavigationItem.navigationName ;
+    menuPath.value = this.selectedNavigationItem.navigationPath; 
+    topNavigationId.value = this.selectedNavigationItem.topNavigationId;
   }
 
-  add(form:NgForm){ 
+  add(form:NgForm){     
+    debugger;
     let model = new NavigationItemModel();
-    model.navigationName = form.controls['navigationName'].value;
-    model.navigationPath = form.controls['navigationPath'].value;
-    model.topNavigationId = form.controls["topNavigationId"].value;
-
+    let menuName = document.getElementById('menuname')  as HTMLInputElement;
+    let menuPath = document.getElementById('menuPath')  as HTMLInputElement;
+    let topNavigationId  = document.getElementById('topNavigationId') as HTMLInputElement;
+    
+    model.navigationName = form.controls['navigationName'].value == "" ? menuName.value :form.controls['navigationName'].value;
+    model.navigationPath = form.controls['navigationPath'].value == "" ? menuPath.value :  form.controls['navigationPath'].value;
+    model.topNavigationId = form.controls["topNavigationId"].value == "" ? topNavigationId.value : form.controls["topNavigationId"].value;
+    if(this.selectedNavigationItem == null){
       this._navigationAddService.add(model,res =>{
         form.reset();
         this._toastr.toast(ToastrType.Success,res.message,"Basarili");
+        console.log("Yeni Kayit");
+        
       })
+    }else {
+      console.log("Güncelleme")
+      model.id = this.selectedNavigationItem.id;
+      this._navigationAddService.update(model,res => {
+        this._toastr.toast(ToastrType.Success,res.message,'Basarili'); 
+      })
+    }
+      let closeBtn = document.getElementById('closeBtn') as HTMLElement;
+      closeBtn.click();
     }
   
   getNavigationItem(){  

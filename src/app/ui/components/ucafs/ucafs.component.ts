@@ -50,7 +50,7 @@ export class UcafsComponent implements OnInit {
   updateUcafModel: UcafModel = new UcafModel();
   isAddForm:boolean = false;
   isUpdateForm:boolean  = false;
-  isLoading:boolean = false;
+  
   ucafs:UcafModel[];
   filterText:string = "";
   ucafType:string = "M"

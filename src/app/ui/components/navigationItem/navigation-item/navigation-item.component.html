@@ -6,7 +6,7 @@
             <i class="fa fa-plus"></i>
           </button>
           
-        <app-navigation-add [navigationItem]=""></app-navigation-add>
+        <!-- <app-navigation-add [navigationItem]="selectedNavigationItem"></app-navigation-add> -->
         <div class="form-group float-right col-md-3 ">
             <input type="search" class="form-control search" placeholder="Aranacak değer" [(ngModel)]="filterText">
         </div>
@@ -96,8 +96,8 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <h5 class="modal-title" id="exampleModalLabel">Menü Ekle / Güncelleme</h5>
+          <button id="closeBtn" type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
@@ -116,7 +116,7 @@
                     </div>
                     <div class="form-group">
                         <label>Ust Menü</label>
-                        <select ngModel #topNavigationId class="form-control"  name="topNavigationId" >
+                        <select ngModel #topNavigationId class="form-control"  name="topNavigationId"  id="topNavigationId">
                             <option value="0">Seçiniz</option>
                             <option *ngFor="let nav of navigationItems" value="{{nav.navigationName}}">{{nav.navigationName}}</option>
                         </select>

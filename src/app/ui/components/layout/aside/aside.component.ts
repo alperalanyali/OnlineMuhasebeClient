@@ -30,8 +30,7 @@ export class AsideComponent  implements OnInit   {
     
   }
   ngOnInit():void{
-    this._asideService.getMenus(res =>{
-      console.log(res);
+    this._asideService.getMenus(res =>{      
       this.menuItems = res.data;
     });
     

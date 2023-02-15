@@ -18,8 +18,7 @@ export class AsideService {
     }
     navigations = Navigation;
     getMenus(callBack:(res:ResponseModel<MenuItem[]>)=>void){
-      let cryoToken = JSON.parse(this._crypto.decrypto(localStorage.getItem("accessToken")));
-      console.log(cryoToken.userId);
+      let cryoToken = JSON.parse(this._crypto.decrypto(localStorage.getItem("accessToken")));      
       let model = {
         id:cryoToken.userId
       }

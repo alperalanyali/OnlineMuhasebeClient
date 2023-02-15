@@ -6,7 +6,9 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import {LoadingButtonComponent} from 'src/app/common/components/loading-button/loading-button.component';
 import { RouterModule } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { ValidInputDirective } from 'src/app/common/directives/valid-input.directive';
+import { changeLoading } from 'src/app/common/state/Loading/loading.actions';
 
 @Component({
   selector: 'app-login',
@@ -17,16 +19,16 @@ import { ValidInputDirective } from 'src/app/common/directives/valid-input.direc
 })
 export class LoginComponent {
   
-  isLoading:boolean = false;
+  
 
   constructor(
     private _auth:AuthService,
-    private _toastrService:ToastrService
+    private _toastrService:ToastrService,
+  
   ){
   }
-  login(form:NgForm){
-    if(form.valid){
-        this.isLoading= true
+  login(form:NgForm){    
+    if(form.valid){        
         this._auth.login(form.value);
       }
   }

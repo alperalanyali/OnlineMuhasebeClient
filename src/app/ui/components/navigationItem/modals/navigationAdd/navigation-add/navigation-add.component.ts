@@ -33,7 +33,7 @@ navigationItems:NavigationItemModel[]=[];
   ngOnInit():void{
     this.getNavigationItem(); 
     this.addForm.controls['menuname'].setValue(this.navigationItem.navigationName); 
-    console.log(this.navigationItem.navigationName);
+    console.log(`Nav:${this.navigationItem.navigationName}`);
   }
   checkIdIsEmpty(){    
     if(this.navigationItem != null){
@@ -41,6 +41,8 @@ navigationItems:NavigationItemModel[]=[];
     }
   }
   add(form:NgForm){ 
+    debugger;
+    let closeBtn = document.querySelector("#closeBtn");
     let model = new NavigationItemModel();
     model.navigationName = form.controls['navigationName'].value;
     model.navigationPath = form.controls['navigationPath'].value;
@@ -56,11 +58,10 @@ navigationItems:NavigationItemModel[]=[];
         this._toastr.toast(ToastrType.Success,res.message,"Basarili");
       })
     }
+    
   }
   
   getNavigationItem(){  
-    this._navigationItemService.getAllNavItem(res => {
-      this.navigationItems = res.data;        
-    });
+ 
   }
 }
