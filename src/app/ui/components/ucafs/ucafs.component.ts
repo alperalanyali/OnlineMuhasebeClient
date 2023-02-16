@@ -142,8 +142,9 @@ export class UcafsComponent implements OnInit {
   }
   exportExcel(){
     let model :ReportRequestModel = new ReportRequestModel();
-    model.type = "UCAF";
+     model.name = "Hesap Plani";
     this._reportService.request(model,(res)=>{
+        console.log(res);
         this._toastr.toast(ToastrType.Info,res.message);
         this._router.navigateByUrl('/reports');
     })
