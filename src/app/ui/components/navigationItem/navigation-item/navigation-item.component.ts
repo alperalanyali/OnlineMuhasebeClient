@@ -32,7 +32,9 @@ import { SectionComponent } from 'src/app/common/components/blank/section/sectio
 
 export class NavigationItemComponent implements OnInit {
   
-
+  navigationName2:string = "";
+  navigationPath2:string = "";
+  topNavigationId2:string = "";
   
   navigationItems:NavigationItemModel[] = [];
   navigationItemMainRole: NavigationItemMainRoleModel[] = [];
@@ -40,6 +42,8 @@ export class NavigationItemComponent implements OnInit {
   mainRoles: MainRoleModel[] = [];
   filterText:string ="";
   isMenuRoleVisible:boolean = false;
+
+  
   constructor(
     private _navigationItemService: NavigationItemService,
     private _toastr: ToastrService,
@@ -55,26 +59,51 @@ export class NavigationItemComponent implements OnInit {
   }
   getAll(){
     this._navigationItemService.getAllNavItem(res => {
-      this.navigationItems = res.data;
-      // console.log(this.navigationItems)      
+      this.navigationItems = res.data;   
     });
     this._navigationItemService.getAllNavMainRole(res => {
       this.navigationItemMainRole = res.data;
-      // console.log(this.navigationItemMainRole);
     });
     this._navigationItemService.getAllMainRole(res => {
       this.mainRoles = res.data;
-      // console.log(res);
-      // console.log(this.mainRoles)
     })
   }
 
   toggleMenuRoleAdd(){
     this.isMenuRoleVisible = !this.isMenuRoleVisible;
   }
-
-  addMenuRole(form:NgForm){
-    
+  addMenu(form:NgForm){      
+    let model = new NavigationItemModel();
+    model.navigationName = form.controls["navigationName"].value;
+    model.navigationPath = form.controls["navigationPath"].value;
+    model.topNavigationId = form.controls["topNavigationId"].value;
+    if(this.selectedNavigationItem.navigationName == ""){
+        if(form.controls["navigationName"].value != "" || form.controls["navigationPath"].value !=""){
+          this._navigationItemService.addMenu(model,res => {
+              this._toastr.toast(ToastrType.Success,res.message,"Başarılı");
+          })
+        }else
+          this._toastr.toast(ToastrType.Warning,"Menu adı veya yolu  boştur!! ","Hata");
+    }else {
+      debugger;
+      this.navigationName2
+      model.id = this.selectedNavigationItem.id;
+      this._navigationItemService.updateMenu(model,res=>{         
+        this._toastr.toast(ToastrType.Success,res.message,"Başarılı");
+      });
+    }
+    let navigationNameElement = document.getElementById("navigationName") as HTMLElement;
+    let navigationPathElement = document.getElementById("navigationPath") as HTMLElement;
+    let topNavigationId = document.getElementById("topNavigationId") as HTMLElement;
+  
+    navigationNameElement.innerText = "";
+    navigationPathElement.innerText = "";
+    topNavigationId.innerText = "";
+    let closeBtn = document.getElementById('closeBtn') as HTMLElement;
+    closeBtn.click();
+    this.getAll();
+  }
+  addMenuRole(form:NgForm){    
     let model = new NavigationItemMainRoleModel();
     model.mainRoleId = form.controls["mainRoleId"].value;
     model.navigationItemId = form.controls["navigationItemId"].value;
@@ -103,43 +132,14 @@ export class NavigationItemComponent implements OnInit {
 
   getId(navigationItem:NavigationItemModel){    
     this.selectedNavigationItem = {...navigationItem};
-    console.log(this.selectedNavigationItem)
-    let menuName = document.getElementById('menuname')  as HTMLInputElement;
-    let menuPath = document.getElementById('menuPath')  as HTMLInputElement;
+    let menuName = document.getElementById('navigationName')  as HTMLInputElement;
+    let menuPath = document.getElementById('navigationPath')  as HTMLInputElement;
     let topNavigationId  = document.getElementById('topNavigationId') as HTMLInputElement;
     
     menuName.value = this.selectedNavigationItem.navigationName ;
     menuPath.value = this.selectedNavigationItem.navigationPath; 
     topNavigationId.value = this.selectedNavigationItem.topNavigationId;
   }
-
-  add(form:NgForm){     
-    debugger;
-    let model = new NavigationItemModel();
-    let menuName = document.getElementById('menuname')  as HTMLInputElement;
-    let menuPath = document.getElementById('menuPath')  as HTMLInputElement;
-    let topNavigationId  = document.getElementById('topNavigationId') as HTMLInputElement;
-    
-    model.navigationName = form.controls['navigationName'].value == "" ? menuName.value :form.controls['navigationName'].value;
-    model.navigationPath = form.controls['navigationPath'].value == "" ? menuPath.value :  form.controls['navigationPath'].value;
-    model.topNavigationId = form.controls["topNavigationId"].value == "" ? topNavigationId.value : form.controls["topNavigationId"].value;
-    if(this.selectedNavigationItem == null){
-      this._navigationAddService.add(model,res =>{
-        form.reset();
-        this._toastr.toast(ToastrType.Success,res.message,"Basarili");
-        console.log("Yeni Kayit");
-        
-      })
-    }else {
-      console.log("Güncelleme")
-      model.id = this.selectedNavigationItem.id;
-      this._navigationAddService.update(model,res => {
-        this._toastr.toast(ToastrType.Success,res.message,'Basarili'); 
-      })
-    }
-      let closeBtn = document.getElementById('closeBtn') as HTMLElement;
-      closeBtn.click();
-    }
   
   getNavigationItem(){  
     this._navigationItemService.getAllNavItem(res => {

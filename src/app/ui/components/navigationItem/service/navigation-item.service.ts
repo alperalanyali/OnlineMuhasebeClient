@@ -27,7 +27,12 @@ export class NavigationItemService {
   getAllNavMainRole(callBack: (res:ResponseModel<NavigationItemMainRoleModel[]>)=>void){
     this._http.get<ResponseModel<NavigationItemMainRoleModel[]>>("NavigationItemMainRole/GetNavigationItemMainRole",res => callBack(res));
   }
-
+  addMenu(model:NavigationItemModel,callBack:(res:MessageReponseModel) => void){
+    this._http.post<MessageReponseModel>("NavigationItem/Create",model, res => callBack(res));
+  }
+  updateMenu(model:NavigationItemModel,callBack:(res:MessageReponseModel) => void){
+    this._http.post<MessageReponseModel>("NavigationItem/Update",model, res =>callBack(res));
+  }
   getAllMainRole(callBack :(res:ResponseModel<MainRoleModel[]>)=>void){
     this._http.get<ResponseModel<MainRoleModel[]>>("MainRole/GetAllMainRole",res => callBack(res));
   }
@@ -35,7 +40,7 @@ export class NavigationItemService {
   addMenuRole(model:NavigationItemMainRoleModel,callBack:(res:MessageReponseModel)=>void){    
     this._http.post<MessageReponseModel>("NavigationItemMainRole/Create",model,res=> callBack(res));
   }
-
+  
   deleteNavigationMainRole(model:NavigationItemMainRoleById,callBack:(res:MessageReponseModel)=>void){
     this._http.post<MessageReponseModel>("NavigationItemMainRole/DeleteById",model,res => callBack(res));
   }
