@@ -4,7 +4,6 @@ import { LoginResponseService } from 'src/app/common/service/login-response.serv
 import { ReportModel } from '../../navigationItem/models/reports.model';
 import { RequestModel } from '../../navigationItem/models/request.model';
 import { ResponseModel } from 'src/app/common/models/response.model';
-import { callbackify } from 'util';
 
 @Injectable({
   providedIn: 'root'
