@@ -1,4 +1,4 @@
-import { GenericHttpService } from 'src/app/common/service/generic-http.service';
+import { GenericHttpService } from 'src/app/common/models/service/generic-http.service';
 import { Injectable } from '@angular/core';
 import { MainRoleModel } from '../models/mainRole.models';
 import { MessageReponseModel } from 'src/app/common/models/message-response.model';

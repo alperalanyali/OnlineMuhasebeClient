@@ -2,7 +2,7 @@ import { AsideComponent } from './aside/aside.component';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { ControlSidebarComponent } from './control-sidebar/control-sidebar.component';
-import {CryptoService} from '../../../common/service/crypto.service';
+import {CryptoService} from '../../../common/models/service/crypto.service';
 import { FooterComponent } from './footer/footer.component';
 import { LoginResponseModel } from '../auth/models/login-response.models';
 import { NavbarComponent } from './navbar/navbar.component';

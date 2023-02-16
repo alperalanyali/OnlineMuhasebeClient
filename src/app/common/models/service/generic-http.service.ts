@@ -7,7 +7,7 @@ import { LoginResponseModel } from 'src/app/ui/components/auth/models/login-resp
 import { LoginResponseService } from './login-response.service';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { changeLoading } from '../state/Loading/loading.actions';
+import { changeLoading } from '../../state/Loading/loading.actions';
 import jwt_decode from "jwt-decode";
 
 @Injectable({

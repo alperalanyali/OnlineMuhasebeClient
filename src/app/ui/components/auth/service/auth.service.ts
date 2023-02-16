@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
-import { CryptoService } from 'src/app/common/service/crypto.service';
-import { GenericHttpService } from 'src/app/common/service/generic-http.service';
+import { CryptoService } from 'src/app/common/models/service/crypto.service';
+import { GenericHttpService } from 'src/app/common/models/service/generic-http.service';
 import { Injectable } from '@angular/core';
 import { LoginResponseModel } from '../models/login-response.models';
 import { Router } from '@angular/router';

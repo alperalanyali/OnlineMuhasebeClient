@@ -1,6 +1,6 @@
-import { GenericHttpService } from 'src/app/common/service/generic-http.service';
+import { GenericHttpService } from 'src/app/common/models/service/generic-http.service';
 import { Injectable } from '@angular/core';
-import { LoginResponseService } from 'src/app/common/service/login-response.service';
+import { LoginResponseService } from 'src/app/common/models/service/login-response.service';
 import { MessageReponseModel } from 'src/app/common/models/message-response.model';
 import { ReportModel } from '../../navigationItem/models/reports.model';
 import { ReportRequestModel } from 'src/app/common/models/report-request.model';
