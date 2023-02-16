@@ -83,9 +83,12 @@
     </app-section>
     <!-- Güncelleme Formu -->
     <app-section sectionTitle="Hesap Planı Listesi">
-        <div class="form-group float-left" *ngIf="!isAddForm && !isUpdateForm">
-                <button class="btn btn-outline-primary" (click)="showAdd()"><i class="fa fa-plus"></i></button>
+        <div class="form-group float-left col-md-4" *ngIf="!isAddForm && !isUpdateForm">
+                <button class="btn btn-outline-primary mx-2" (click)="showAdd()"><i class="fa fa-plus"></i></button>
+                <app-excel-loading-button (click)="exportExcel()"></app-excel-loading-button>
+                
         </div>
+     
       <!-- Arama -->
         <div class="form-group float-right col-md-3 ">
                 <input type="search" class="form-control search" placeholder="Aranacak değer" [(ngModel)]="filterText">

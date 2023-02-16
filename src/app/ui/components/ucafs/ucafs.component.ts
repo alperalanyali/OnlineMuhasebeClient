@@ -5,11 +5,15 @@ import { ToastrService, ToastrType } from 'src/app/common/service/toastr.service
 import { BlankComponent } from 'src/app/common/components/blank/blank.component';
 import { CommonModule } from '@angular/common';
 import { CryptoService } from 'src/app/common/service/crypto.service';
+import { ExcelLoadingButtonComponent } from 'src/app/common/components/excel-loading-button/excel-loading-button.component';
 import { LoadingButtonComponent } from 'src/app/common/components/loading-button/loading-button.component';
 import { LoginResponseModel } from '../auth/models/login-response.models';
 import { LoginResponseService } from 'src/app/common/service/login-response.service';
 import { NavModel } from 'src/app/common/components/blank/models/navs.model';
 import { RemoveByIdModel } from './models/remove-by-id.model';
+import { ReportRequestModel } from 'src/app/common/models/report-request.model';
+import { ReportsService } from '../reports/service/reports.service';
+import { Router } from '@angular/router';
 import { SectionComponent } from 'src/app/common/components/blank/section/section.component';
 import { SwalComponent } from '@sweetalert2/ngx-sweetalert2';
 import { SwalService } from 'src/app/common/service/swal.service';
@@ -27,7 +31,8 @@ import { ValidInputDirective } from 'src/app/common/directives/valid-input.direc
             UcafPipe,
             FormsModule,
             ValidInputDirective,            
-            LoadingButtonComponent],
+            LoadingButtonComponent,
+            ExcelLoadingButtonComponent],
   templateUrl: './ucafs.component.html',
   styleUrls: ['./ucafs.component.css']
 })
@@ -60,7 +65,9 @@ export class UcafsComponent implements OnInit {
     private _ucafService: UcafService,
     private  _loginResponseService: LoginResponseService,
     private _toastr: ToastrService,
-    private _swal:SwalService
+    private _swal:SwalService,
+    private _reportService:ReportsService,
+    private _router:Router
     )
     {
       this.loginResponse = this._loginResponseService.getLoginResponse();
@@ -132,5 +139,13 @@ export class UcafsComponent implements OnInit {
       return "text-primary";
     else 
       return "";
+  }
+  exportExcel(){
+    let model :ReportRequestModel = new ReportRequestModel();
+    model.type = "UCAF";
+    this._reportService.request(model,(res)=>{
+        this._toastr.toast(ToastrType.Info,res.message);
+        this._router.navigateByUrl('/reports');
+    })
   }
 }

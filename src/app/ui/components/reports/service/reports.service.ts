@@ -1,7 +1,9 @@
 import { GenericHttpService } from 'src/app/common/service/generic-http.service';
 import { Injectable } from '@angular/core';
 import { LoginResponseService } from 'src/app/common/service/login-response.service';
+import { MessageReponseModel } from 'src/app/common/models/message-response.model';
 import { ReportModel } from '../../navigationItem/models/reports.model';
+import { ReportRequestModel } from 'src/app/common/models/report-request.model';
 import { RequestModel } from '../../navigationItem/models/request.model';
 import { ResponseModel } from 'src/app/common/models/response.model';
 
@@ -10,7 +12,6 @@ import { ResponseModel } from 'src/app/common/models/response.model';
 })
 export class ReportsService {
 
-  apiUrl:string='Reports/GetAll';
   constructor(
     private _http:GenericHttpService,
     private _loginResponseService:LoginResponseService
@@ -21,6 +22,13 @@ export class ReportsService {
   getAll(callBack:(res:ResponseModel<ReportModel[]>)=>void) {
     let model:RequestModel = new RequestModel();
     model.companyId = this._loginResponseService.getLoginResponse().company.companyId;
-    this._http.post<ResponseModel<ReportModel[]>>(this.apiUrl,model,res => callBack(res))
+    this._http.post<ResponseModel<ReportModel[]>>('Reports/GetAll',model,res => callBack(res))
+  }
+
+  request(model:ReportRequestModel,callBack:(res:MessageReponseModel)=>void){
+    model.companyId = this._loginResponseService.getLoginResponse().company.companyId;
+    this._http.post<MessageReponseModel>("Reports/Request",model,res=> {
+      callBack(res);
+    })
   }
 }
