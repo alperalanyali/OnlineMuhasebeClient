@@ -37,6 +37,10 @@ bootstrapApplication(AppComponent,{
                         {
                             path:"users",
                             loadComponent: ()=>import("./app/ui/components/users/users/users.component").then(c => c.UsersComponent)
+                        },
+                        {
+                            path:"reports",
+                            loadComponent: ()=> import("./app/ui/components/reports/reports.component").then(c => c.ReportsComponent)
                         }
                     ]
                 },

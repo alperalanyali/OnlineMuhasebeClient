@@ -2,3 +2,21 @@
 a{
     cursor: pointer !important;
 }
+tr:hover{
+    background-color: #f2f2f2;
+}
+.search{
+    background-color: white;
+    background-image: url("/assets/images/searchicon.png");
+    background-position: 10px 10px;
+    background-repeat: no-repeat;
+    padding: 10px 20px 12px 40px;
+    width:130px;
+    float: right;
+    transition: 1s;
+}
+
+.search:focus{
+    width:100%;
+    transition: 1s;
+}

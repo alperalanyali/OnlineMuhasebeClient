@@ -1,0 +1,37 @@
+<app-blank title="Raporlar" [navs]="navs">
+    <app-section sectionTitle="Rapor Listesi">
+        <table class="table">
+                <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Rapor Adı</th>                
+                            <th>İstek Tarihi</th>
+                            <th>Durum</th>
+                            <th>Oluşturulma Tarihi</th>
+                            <th>Dosya</th>
+                        </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let report of reports let index =index">
+                        <td>{{index+1}}</td>
+                        <td [innerText]="report.name"></td>
+                        <td [innerText]="report?.createdDate | date:'dd.MM.yyyy HH:mm:ss'"></td>
+                        <td>
+                                <span [class]="changeSpanClassByStatus(report.status)">
+                                    {{!report.status ? 'Hazırlanıyor' : 'Hazir' }}
+                                </span>
+
+                        </td>
+                        <td [innerText]="report?.updatedDate | date:'dd.MM.yyyy HH:mm:ss'"></td>
+                        <td>
+                            <a [href]="report.fileUrl" target="_blank">
+                                <i class="fa fa-file-excel"></i>
+                            </a>
+                        </td>
+                    </tr>
+
+                </tbody>
+        </table>
+    </app-section>
+
+</app-blank>
