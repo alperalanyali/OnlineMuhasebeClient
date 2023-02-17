@@ -1,5 +1,9 @@
 <app-blank title="Raporlar" [navs]="navs">
     <app-section sectionTitle="Rapor Listesi">
+        <button class="btn btn-outline-primary mx-1"  (click)="getAll()">
+            <i class="fa fa-rotate"></i>
+            Yenile
+        </button>
         <table class="table">
                 <thead>
                         <tr>
@@ -24,7 +28,7 @@
                         </td>
                         <td [innerText]="report?.updatedDate | date:'dd.MM.yyyy HH:mm:ss'"></td>
                         <td>
-                            <a [href]="report.fileUrl" target="_blank">
+                            <a [href]="'/assets/reports/'+report.fileUrl" target="_blank" *ngIf="report.fileUrl != '' ">
                                 <i class="fa fa-file-excel"></i>
                             </a>
                         </td>
