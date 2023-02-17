@@ -3,4 +3,5 @@ export class NavigationItemModel{
     navigationName:string="";
     navigationPath:string="";
     topNavigationId:string="";
+    priority:number = 0;
 }

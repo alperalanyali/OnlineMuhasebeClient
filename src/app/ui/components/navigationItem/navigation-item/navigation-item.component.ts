@@ -74,31 +74,24 @@ export class NavigationItemComponent implements OnInit {
   }
   addMenu(form:NgForm){      
     let model = new NavigationItemModel();
-    model.navigationName = form.controls["navigationName"].value;
-    model.navigationPath = form.controls["navigationPath"].value;
-    model.topNavigationId = form.controls["topNavigationId"].value;
+    console.log("Inside addMenu ",this.selectedNavigationItem.navigationName)
+   
     if(this.selectedNavigationItem.navigationName == ""){
-        if(form.controls["navigationName"].value != "" || form.controls["navigationPath"].value !=""){
-          this._navigationItemService.addMenu(model,res => {
-              this._toastr.toast(ToastrType.Success,res.message,"Başarılı");
-          })
-        }else
-          this._toastr.toast(ToastrType.Warning,"Menu adı veya yolu  boştur!! ","Hata");
+      model.navigationName = form.controls["navigationName"].value;
+      model.navigationPath = form.controls["navigationPath"].value;
+      model.topNavigationId = form.controls["topNavigationId"].value;
+      if(form.controls["navigationName"].value != "" || form.controls["navigationPath"].value !=""){
+        this._navigationItemService.addMenu(model,res => {
+            this._toastr.toast(ToastrType.Success,res.message,"Başarılı");
+        })
+      }else
+        this._toastr.toast(ToastrType.Warning,"Menu adı veya yolu  boştur!! ","Hata");
     }else {
       debugger;
-      this.navigationName2
-      model.id = this.selectedNavigationItem.id;
-      this._navigationItemService.updateMenu(model,res=>{         
+      this._navigationItemService.updateMenu(this.selectedNavigationItem,res=>{         
         this._toastr.toast(ToastrType.Success,res.message,"Başarılı");
       });
     }
-    let navigationNameElement = document.getElementById("navigationName") as HTMLElement;
-    let navigationPathElement = document.getElementById("navigationPath") as HTMLElement;
-    let topNavigationId = document.getElementById("topNavigationId") as HTMLElement;
-  
-    navigationNameElement.innerText = "";
-    navigationPathElement.innerText = "";
-    topNavigationId.innerText = "";
     let closeBtn = document.getElementById('closeBtn') as HTMLElement;
     closeBtn.click();
     this.getAll();
@@ -131,14 +124,8 @@ export class NavigationItemComponent implements OnInit {
   }
 
   getId(navigationItem:NavigationItemModel){    
-    this.selectedNavigationItem = {...navigationItem};
-    let menuName = document.getElementById('navigationName')  as HTMLInputElement;
-    let menuPath = document.getElementById('navigationPath')  as HTMLInputElement;
-    let topNavigationId  = document.getElementById('topNavigationId') as HTMLInputElement;
-    
-    menuName.value = this.selectedNavigationItem.navigationName ;
-    menuPath.value = this.selectedNavigationItem.navigationPath; 
-    topNavigationId.value = this.selectedNavigationItem.topNavigationId;
+    this.selectedNavigationItem = {...navigationItem};  
+    console.log(this.selectedNavigationItem);  
   }
   
   getNavigationItem(){  
