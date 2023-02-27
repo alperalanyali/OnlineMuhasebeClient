@@ -1,6 +1,6 @@
 <app-blank title="Raporlar" [navs]="navs">
     <app-section sectionTitle="Rapor Listesi">
-        <button class="btn btn-outline-primary mx-1"  (click)="getAll()">
+        <button class="btn btn-outline-primary mx-1"  (click)="getAll(pageNumber)">
             <i class="fa fa-rotate"></i>
             Yenile
         </button>
@@ -16,8 +16,8 @@
                         </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let report of reports let index =index">
-                        <td>{{index+1}}</td>
+                    <tr *ngFor="let report of result.datas let index =index">
+                        <td>{{((index + (pageNumber-1)*pageSize)+1)}}</td>
                         <td [innerText]="report.name"></td>
                         <td [innerText]="report?.createdDate | date:'dd.MM.yyyy HH:mm:ss'"></td>
                         <td>
@@ -36,6 +36,20 @@
 
                 </tbody>
         </table>
+        <nav aria-label="Page navigation example" class="mt-4">
+            <ul class="pagination justify-content-end">
+              <li class="page-item " *ngIf="!result.isFirstPage">
+                <a class="page-link" (click)="getAll(pageNumber-1)">Previous</a>
+              </li>
+              <li class="page-item" [ngClass]="result.pageNumber == p ? 'active' : '' " *ngFor="let p of pageNumbers" >
+                <a class="page-link" (click)="getAll(p)" >{{p}}</a>
+              </li>
+             
+              <li class="page-item" *ngIf="!result.isLastPage">
+                <a class="page-link" (click)="getAll(pageNumber+1)" >Next</a>
+              </li>
+            </ul>
+          </nav>
     </app-section>
 
 </app-blank>

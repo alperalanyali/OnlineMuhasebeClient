@@ -1,5 +1,5 @@
 import {FormsModule, NgForm} from '@angular/forms';
-import { ToastrService, ToastrType } from 'src/app/common/models/service/toastr.service';
+import { ToastrService, ToastrType } from 'src/app/common/service/toastr.service';
 
 import { AuthService } from '../service/auth.service';
 import { CommonModule } from '@angular/common';

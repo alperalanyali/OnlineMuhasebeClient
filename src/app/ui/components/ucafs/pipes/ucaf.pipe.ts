@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { StringService } from 'src/app/common/models/service/string.service';
+import { StringService } from 'src/app/common/service/string.service';
 
 @Pipe({
   name: 'ucafPipe',

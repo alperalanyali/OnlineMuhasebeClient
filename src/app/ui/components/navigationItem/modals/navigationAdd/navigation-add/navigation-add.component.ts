@@ -1,9 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
-import { ToastrService, ToastrType } from 'src/app/common/models/service/toastr.service';
+import { ToastrService, ToastrType } from 'src/app/common/service/toastr.service';
 
 import { CommonModule } from '@angular/common';
-import { GenericHttpService } from 'src/app/common/models/service/generic-http.service';
+import { GenericHttpService } from 'src/app/common/service/generic-http.service';
 import { NavigationItemModel } from '../../../models/navigationItem.model';
 import { NavigationItemService } from '../../../service/navigation-item.service';
 import { NavigationaddService } from '../../service/navigationadd.service';

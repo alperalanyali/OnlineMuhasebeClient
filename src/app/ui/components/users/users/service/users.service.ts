@@ -1,5 +1,5 @@
 import { CompanyModel } from '../../model/company.model';
-import { GenericHttpService } from 'src/app/common/models/service/generic-http.service';
+import { GenericHttpService } from 'src/app/common/service/generic-http.service';
 import { Injectable } from '@angular/core';
 import { MainRoleModel } from '../../../navigationItem/models/mainRole.models';
 import { MainRoleUserModel } from '../../model/mainRole-user.model';

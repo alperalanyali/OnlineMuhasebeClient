@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
-import { ToastrService, ToastrType } from 'src/app/common/models/service/toastr.service';
+import { ToastrService, ToastrType } from 'src/app/common/service/toastr.service';
 
 import { BlankComponent } from 'src/app/common/components/blank/blank.component';
 import { CommonModule } from '@angular/common';

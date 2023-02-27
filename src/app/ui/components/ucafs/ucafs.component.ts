@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
-import { ToastrService, ToastrType } from 'src/app/common/models/service/toastr.service';
+import { ToastrService, ToastrType } from 'src/app/common/service/toastr.service';
 
 import { BlankComponent } from 'src/app/common/components/blank/blank.component';
 import { CommonModule } from '@angular/common';
-import { CryptoService } from 'src/app/common/models/service/crypto.service';
+import { CryptoService } from 'src/app/common/service/crypto.service';
 import { ExcelLoadingButtonComponent } from 'src/app/common/components/excel-loading-button/excel-loading-button.component';
 import { LoadingButtonComponent } from 'src/app/common/components/loading-button/loading-button.component';
 import { LoginResponseModel } from '../auth/models/login-response.models';
-import { LoginResponseService } from 'src/app/common/models/service/login-response.service';
+import { LoginResponseService } from 'src/app/common/service/login-response.service';
 import { NavModel } from 'src/app/common/components/blank/models/navs.model';
 import { RemoveByIdModel } from './models/remove-by-id.model';
 import { ReportRequestModel } from 'src/app/common/models/report-request.model';
@@ -16,7 +16,7 @@ import { ReportsService } from '../reports/service/reports.service';
 import { Router } from '@angular/router';
 import { SectionComponent } from 'src/app/common/components/blank/section/section.component';
 import { SwalComponent } from '@sweetalert2/ngx-sweetalert2';
-import { SwalService } from 'src/app/common/models/service/swal.service';
+import { SwalService } from 'src/app/common/service/swal.service';
 import { UcafModel } from './models/ucaf.model';
 import { UcafPipe } from './pipes/ucaf.pipe';
 import { UcafService } from './services/ucaf.service';

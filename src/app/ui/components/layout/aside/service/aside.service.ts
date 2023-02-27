@@ -1,7 +1,7 @@
 import { Navigation, Navigations } from 'src/app/ui/router/navigation';
 
-import { CryptoService } from 'src/app/common/models/service/crypto.service';
-import { GenericHttpService } from 'src/app/common/models/service/generic-http.service';
+import { CryptoService } from 'src/app/common/service/crypto.service';
+import { GenericHttpService } from 'src/app/common/service/generic-http.service';
 import { Injectable } from '@angular/core';
 import { MenuItem } from '../models/menuItem';
 import { ResponseModel } from 'src/app/common/models/response.model';

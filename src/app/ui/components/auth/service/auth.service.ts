@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
-import { CryptoService } from 'src/app/common/models/service/crypto.service';
-import { GenericHttpService } from 'src/app/common/models/service/generic-http.service';
+import { CryptoService } from 'src/app/common/service/crypto.service';
+import { GenericHttpService } from 'src/app/common/service/generic-http.service';
 import { Injectable } from '@angular/core';
 import { LoginResponseModel } from '../models/login-response.models';
 import { Router } from '@angular/router';
@@ -23,7 +23,7 @@ export class AuthService {
 
   login(model:any){  
     this._store.dispatch(changeLoading());
-    this._http.loginPost<LoginResponseModel>(this.api,model,res => {
+    this._http.post<LoginResponseModel>(this.api,model,res => {
       this._store.dispatch(changeLoading());
       let cryptoToken = this._crypto.encrypto(JSON.stringify(res));      
       localStorage.setItem('accessToken',cryptoToken);
