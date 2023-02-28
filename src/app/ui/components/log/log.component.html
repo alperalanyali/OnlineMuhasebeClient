@@ -1,0 +1,56 @@
+<app-blank title="Log">
+
+    <app-section sectionTitle="Log Listesi">
+        <div class="form-group float-right col-md-3 ">
+            <input type="search" class="form-control search" placeholder="Aranacak değer" [(ngModel)]="filterText">
+         </div>
+            <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Kulanıcı Id</th>
+                            <th>Kullanıcı Adı</th>
+                            <th>Eposta</th>
+                            <th>Tablo Adı</th>
+                            <th>Türü</th>
+                            <th>Veri</th>
+                            <th> Yapılma Tarihi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let log of result.datas let index = index">
+                            <td>{{((index + (pageNumber-1)*model.pageSize)+1)}}</td>
+                            <td>{{log.userId}}</td>
+                            <td>{{log.userName}}</td>
+                            <td>{{log.userEmail}}</td>
+                            <td>{{log.tableName}}</td>
+                            <td [innerText]="changeLogProgress(log.progress)"></td>
+                            <td>
+                                    <ul style="list-style-type: none;">
+                                          <li>Kod:{{log.dataObject.Code}}</li>      
+                                          <li>Tip:{{log.dataObject.Type}}</li>
+                                          <li>Adı:{{log.dataObject.Name}}</li>
+                                          <li>O.T:{{log.dataObject.CreatedDate | date:'dd.MM.yyyy HH:mm:ss'}}</li>
+                                    </ul>
+                            </td>
+                            <td>{{log.createdDate | date:'dd.MM.yyyy HH:mm:ss'}}</td>
+                        </tr>
+                    </tbody>    
+            </table>
+            <nav aria-label="Page navigation example" class="mt-4" *ngIf="result.totalPages>1">
+                <ul class="pagination justify-content-end">
+                  <li class="page-item " *ngIf="!result.isFirstPage">
+                    <a class="page-link" (click)="getAll(model.pageNumber-1)">Previous</a>
+                  </li>
+                  <li class="page-item" [ngClass]="result.pageNumber == p ? 'active' : '' " *ngFor="let p of pageNumbers" >
+                    <a class="page-link" (click)="getAll(p)" >{{p}}</a>
+                  </li>
+                 
+                  <li class="page-item" *ngIf="!result.isLastPage">
+                    <a class="page-link" (click)="getAll(model.pageNumber+1   )" >Next</a>
+                  </li>
+                </ul>
+              </nav>
+
+    </app-section>
+</app-blank>
