@@ -42,7 +42,7 @@ export class NavigationItemComponent implements OnInit {
   mainRoles: MainRoleModel[] = [];
   filterText:string ="";
   isMenuRoleVisible:boolean = false;
-
+  isUpdateNavigation:boolean = false;
   
   constructor(
     private _navigationItemService: NavigationItemService,
@@ -75,8 +75,8 @@ export class NavigationItemComponent implements OnInit {
   addMenu(form:NgForm){      
     let model = new NavigationItemModel();
     console.log("Inside addMenu ",this.selectedNavigationItem.navigationName)
-   
-    if(this.selectedNavigationItem.navigationName == ""){
+    
+    if(!this.isUpdateNavigation){
       model.navigationName = form.controls["navigationName"].value;
       model.navigationPath = form.controls["navigationPath"].value;
       model.topNavigationId = form.controls["topNavigationId"].value;
@@ -86,8 +86,7 @@ export class NavigationItemComponent implements OnInit {
         })
       }else
         this._toastr.toast(ToastrType.Warning,"Menu adı veya yolu  boştur!! ","Hata");
-    }else {
-      debugger;
+    }else {      
       this._navigationItemService.updateMenu(this.selectedNavigationItem,res=>{         
         this._toastr.toast(ToastrType.Success,res.message,"Başarılı");
       });
@@ -123,7 +122,9 @@ export class NavigationItemComponent implements OnInit {
     })
   }
 
-  getId(navigationItem:NavigationItemModel){    
+  getId(navigationItem:NavigationItemModel){  
+    
+    this.isUpdateNavigation = true;  
     this.selectedNavigationItem = {...navigationItem};  
     console.log(this.selectedNavigationItem);  
   }

@@ -45,6 +45,10 @@ bootstrapApplication(AppComponent,{
                         {
                             path:"logs",
                             loadComponent: ()=> import("./app/ui/components/log/log.component").then(c=> c.LogComponent)
+                        },
+                        {
+                            path:"bookEntries",
+                            loadComponent: ()=>import("./app/ui/components/bookEntry/book-entry/book-entry.component").then(c => c.BookEntryComponent)
                         }
                     ]
                 },
