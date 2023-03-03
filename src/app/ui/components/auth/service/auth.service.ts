@@ -47,4 +47,9 @@ export class AuthService {
       // this._router.navigateByUrl("/");
     },false)
   }
+
+  changeYear(model:LoginResponseModel){
+    let cryptoToken = this._crypto.encrypto(JSON.stringify(model));      
+    localStorage.setItem('accessToken',cryptoToken);
+  }
 }

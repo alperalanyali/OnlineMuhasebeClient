@@ -2,6 +2,7 @@ import {BrowserModule, bootstrapApplication} from '@angular/platform-browser';
 
 import { AppComponent } from './app/app.component';
 import { AuthGuard } from './app/ui/components/auth/guard/auth.guard';
+import { DatePipe } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
@@ -11,6 +12,7 @@ import {provideHttpClient} from '@angular/common/http';
 
 bootstrapApplication(AppComponent,{ 
     providers:[
+        DatePipe,
         provideHttpClient(),
         importProvidersFrom(
             BrowserModule,
@@ -48,7 +50,7 @@ bootstrapApplication(AppComponent,{
                         },
                         {
                             path:"bookEntries",
-                            loadComponent: ()=>import("./app/ui/components/bookEntry/book-entry/book-entry.component").then(c => c.BookEntryComponent)
+                            loadComponent: ()=>import("./app/ui/components/book-entries//book-entries.component").then(c => c.BookEntriesComponent)
                         }
                     ]
                 },

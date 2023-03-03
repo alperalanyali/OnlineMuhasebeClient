@@ -7,8 +7,15 @@
       <li class="nav-item d-none d-sm-inline-block">
         <a  class="nav-link"><b>Şirket:</b>{{loginResponse.company.companyName}}</a>
       </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="#" class="nav-link"><b>Yıl:</b>{{loginResponse.year}}</a>
+      <li class="nav-item d-none d-sm-inline-block">        
+          <select class="form-control" [(ngModel)]="loginResponse.year" (change)="changeYear()">
+            <option>2021</option>
+            <option>2022</option>
+            <option>2023</option>
+            <option>2024</option>
+        </select>    
+            
+        
       </li>
     </ul>
 

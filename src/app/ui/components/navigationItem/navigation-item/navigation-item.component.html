@@ -2,7 +2,7 @@
 
     
     <app-section sectionTitle="Menü Listesi">
-        <button (click)="getAll()" type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#exampleModal">
+        <button (click)="getAll()" type="button" class="btn btn-outline-primary" id="closeBtn" data-toggle="modal" data-target="#exampleModal">
             <i class="fa fa-plus"></i>
           </button>
           
@@ -17,6 +17,7 @@
                 <tr>
                     <th>Menü Adı</th>
                     <th>Menü Yolu</th>
+                    <th>Menü Önceliği</th>
                     <th>Üst Menüsü</th>
                     <th>İşlemler</th>
                 </tr>
@@ -25,6 +26,7 @@
                 <tr *ngFor="let nav of navigationItems">                
                     <td>{{nav.navigationName}}</td>
                     <td>{{nav.navigationPath}}</td>
+                    <td>{{nav.priority}}</td>
                     <td>{{nav.topNavigationId}}</td>
                     <td>
                         <button (click)="getId(nav)" class="btn btn-outline-warning btn-sm" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-edit"></i></button>

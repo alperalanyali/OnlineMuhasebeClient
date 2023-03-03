@@ -83,17 +83,19 @@ export class NavigationItemComponent implements OnInit {
       if(form.controls["navigationName"].value != "" || form.controls["navigationPath"].value !=""){
         this._navigationItemService.addMenu(model,res => {
             this._toastr.toast(ToastrType.Success,res.message,"Başarılı");
+            this.getAll();
         })
       }else
         this._toastr.toast(ToastrType.Warning,"Menu adı veya yolu  boştur!! ","Hata");
     }else {      
       this._navigationItemService.updateMenu(this.selectedNavigationItem,res=>{         
         this._toastr.toast(ToastrType.Success,res.message,"Başarılı");
+        this.getAll();
       });
     }
     let closeBtn = document.getElementById('closeBtn') as HTMLElement;
     closeBtn.click();
-    this.getAll();
+
   }
   addMenuRole(form:NgForm){    
     let model = new NavigationItemMainRoleModel();

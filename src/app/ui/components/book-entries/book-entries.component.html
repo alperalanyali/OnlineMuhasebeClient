@@ -1,0 +1,113 @@
+<app-blank title="Yevmiye Fişleri">
+    <app-section sectionTitle="Yevmiye Fişi Listesi">
+        <div class="form-group float-left col-md-4">
+            <button class="btn btn-outline-primary mx-2" data-toggle="modal" data-target="#createModal"><i
+                    class="fa fa-plus"></i></button>
+            <app-excel-loading-button (click)="exportExcel()"></app-excel-loading-button>
+
+        </div>
+
+        <!-- Arama -->
+        <div class="form-group float-right col-md-3 ">
+            <input type="search" class="form-control search" placeholder="Aranacak değer" [(ngModel)]="filterText">
+        </div>
+        <!-- Arama -->
+        <!-- Liste -->
+        <div class="form-group">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Tarih</th>
+                        <th>Yevmiye Fişi Numarası</th>
+                        <th>Tip</th>
+                        <th>Borç</th>
+                        <th>Alacak</th>
+                        <th>Bakiye</th>
+                        <th>İşlemler</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let bookEntry of result.datas let index=index">
+                        <td>{{((index + (pageNumber-1)*pageSize)+1)}}</td>
+                        <td>{{bookEntry.date | date:'dd.MM.yyyy'}}</td>
+                        <td>{{bookEntry.bookEntryNumber}}</td>
+                        <td>{{bookEntry.type}}</td>
+                        <td>{{bookEntry.debt}}</td>
+                        <td>{{bookEntry.credit}}</td>
+                        <td>{{bookEntry.balance}}</td>
+                        <td>
+                            <div>
+                                <button class="btn btn-outline-warning btn-sm" title="Güncelle"><i
+                                        class="fa fa-edit"></i></button>
+                                <button (click)="removeById(bookEntry.id)" class="btn btn-outline-danger btn-sm mx-1"
+                                    title="Sil"><i class="fa fa-trash"></i></button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <nav aria-label="Page navigation example" class="mt-4">
+            <ul class="pagination justify-content-end">
+                <li class="page-item " *ngIf="!result.isFirstPage">
+                    <a class="page-link" (click)="getAll(pageNumber-1)">Previous</a>
+                </li>
+                <li class="page-item" [ngClass]="result.pageNumber == p ? 'active' : '' " *ngFor="let p of pageNumbers">
+                    <a class="page-link" (click)="getAll(p)">{{p}}</a>
+                </li>
+
+                <li class="page-item" *ngIf="!result.isLastPage">
+                    <a class="page-link" (click)="getAll(pageNumber+1)">Next</a>
+                </li>
+            </ul>
+        </nav>
+        <!-- Liste -->
+    </app-section>
+
+    <div class="modal fade" id="createModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5">Yevmiye Fişi Oluştur</h1>
+                    <button type="button" class="btn btn-outline-danger "  id="closeBtn" data-dismiss="modal" aria-label="Close">
+                        <i class="fa fa-xmark"></i>
+                    </button>
+                </div>
+                <form #createForm="ngForm" (ngSubmit)="create(createForm)">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label> Tipi</label>
+                            <select name="type" #type [(ngModel)]="typeInput" required class="form-control" [validInput]="type.validity.valid">
+                                    <option value="Muavin">Muavin</option>
+                                    <option value="Acilis">Açılış</option>
+                                    <option value="Kapanis">Kapanış</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Yevmiye tipi seçilmelidir.
+                            </div>
+                        </div>
+                        <div class="form-group mt-1">
+                            <label>Tarihi</label>
+                            <input type="date" class="form-control" #date name="date" [(ngModel)]="dateInput" required [validInput]="date.validity.valid">
+                            
+                        </div>
+                        <div class="form-group mt-1">
+                            <label> Açıklaması</label>
+                            <input type="text" class="form-control" #description name="description" ngModel required [validInput]="description.validity.valid"
+                            >
+                            <div class="invalid-feedback">
+                                    Açıklama alanı en az 3 karakter olmalıdır!!
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-danger" data-dismiss="modal">İptal</button>
+                        <button type="submit" class="btn btn-primary">Yevmiye fişi oluştur</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</app-blank>
